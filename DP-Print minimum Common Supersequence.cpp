@@ -62,29 +62,31 @@ int main() {
         else{
             if(t[i-1][j] > t[i][j-1])
             {
+                s = x[i-1]+s;
                 i--;
             }
             
-            else{
-            j--;
-            
-                
+            else
+            {
+                s=y[j-1]+s;
+                j--;
             }
-            
-
         }
     }
     
+    while(i >0)
+    {
+        s = x[i-1]+s;
+        i--;
+    }
+    
+    while(j>0)
+    {
+        s = y[j-1]+s;
+        j--;
+    }
+    
     cout<<s<<endl;
-    
-    
-    string s1 = x+y;
-    for(int i=0;i<s.length();i++)
-     {
-         s1.erase(find(s1.begin(),s1.end(),s[i]));
-     }
-    
-    cout<<s1;
     
     
 	return 0;

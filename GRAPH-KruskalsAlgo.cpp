@@ -17,16 +17,11 @@ void addEdge(vector < vector <int > > &v , pair<int, pair <int,int> > p)
 }
 
 
-
-void merge(vector <int> &parent , int u ,int v)
+void merge(int u , int v , vector <int> &parent)
 {
-    for(int i=0;i<parent.size();i++)
-     {
-         if(parent[i] == parent[v])
-           parent[i] = parent[u];
-     }
-     
-     
+    int up =find(u,parent);
+    int vp=find(v,parent);
+    parent[vp] = parent[up];
 }
 
 

@@ -1,4 +1,79 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
 
+int find(int i , vector <int> parent)
+{
+    if(i == parent[i])
+     return i;
+     
+     return find(parent[i], parent);
+}
+
+void merge(int u , int v , vector <int> &parent)
+{
+    int u_rep = find(u , parent);
+    int v_rep = find(v , parent);
+    
+    parent[v_rep] = u_rep;
+}
+
+int solve(vector<vector<int> > graph , vector<pair <int, pair<int,int> > > e , vector<int> &parent)
+{
+    int n = graph.size();
+    sort(e.begin(),e.end());
+    int ans =0;
+    int nodes=0;
+    for(int i=0;i<e.size();i++)
+    {
+        int weight = e[i].first;
+        int u = e[i].second.first;
+        int v = e[i].second.second;
+        int u_rep = find(u,parent);
+        int v_rep = find(v , parent);
+        
+        if(u_rep != v_rep)
+        {
+            merge(u,v,parent);
+            nodes++;
+            ans += weight;
+        }
+        
+        if(nodes+1 == n)
+        break;
+    }
+    
+    return ans;
+}
+
+int main() {
+	int n;
+	cin>>n;
+	vector<vector <int> >graph(n , vector <int> (n , 0));
+	vector <pair<int , pair<int,int> > > e;
+	for(int i=0;i<n;i++)
+	 for(int j=0;j<n;j++)
+	    {
+	        cin>>graph[i][j];
+	        if(graph[i][j] !=0)
+	        {
+	            e.push_back({graph[i][j] , {i,j}});
+	        }
+	    }
+	    
+	    vector <int> parent(n);
+	    for(int i=0;i<n;i++)
+	    parent[i]=i;
+	    
+	    cout<<solve(graph , e , parent);
+      	     
+    
+	return 0;
+}
+
+
+
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 //kruskal's algorithm
 

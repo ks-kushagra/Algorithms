@@ -1,0 +1,75 @@
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+
+You must do it in place.
+
+Example 1:
+Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]
+
+LEVEL : Medium
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    /**n=3
+    rowVector : 1 1 1
+    colVector : 1 1 1
+    
+    vector<pair> zero : {1,1}
+    
+    for(i = 0 , i<zero.size()){
+        pair = fectchfromZero;
+        if(row[first] != 0){
+            row[first = 0];
+        }
+        sim for col
+    }
+    
+    1 0 1
+    1 0 1
+    
+    zero : {0,0} ,{0,3}
+    r - 0 1 1 1
+    c - 0 1 1 0
+    */
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        vector<int> row(n,1),col(m,1);
+        vector<pair<int,int>> zeroIndex;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(matrix[i][j] == 0){
+                    zeroIndex.push_back({i,j});
+                }
+            }
+        }
+        
+        for(int i=0;i<zeroIndex.size();i++){
+            auto p = zeroIndex[i];
+            if(row[p.first] != 0){
+                row[p.first] = 0;
+            }
+            
+            if(col[p.second] != 0){
+                col[p.second] =0;
+            }
+        }
+        vector<int> zero(m,0);
+        for(int i=0;i<n;i++){
+            if(row[i] == 0){
+                matrix[i] = zero;
+            }
+        }
+        
+        for(int i=0;i<m;i++){
+                        
+            if(col[i] == 0){
+                for(int j=0;j<n;j++){
+                    matrix[j][i]=0;
+                }
+            }
+        }
+        
+    }
+};
